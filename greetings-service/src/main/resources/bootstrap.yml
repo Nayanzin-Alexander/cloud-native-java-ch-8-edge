@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: greetings-service
+
+server:
+  port: 0
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}

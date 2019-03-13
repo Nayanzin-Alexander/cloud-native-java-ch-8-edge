@@ -14,9 +14,11 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>cloud-native-java-ch-8-edge</name>
     <description>Demo project for Spring Boot</description>
+    <packaging>pom</packaging>
 
     <modules>
         <module>eureka-server</module>
+        <module>greetings-service</module>
     </modules>
 
     <properties>
@@ -28,10 +30,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
