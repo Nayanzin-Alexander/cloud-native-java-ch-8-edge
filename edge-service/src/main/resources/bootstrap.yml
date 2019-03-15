@@ -3,8 +3,8 @@ spring:
     name: greetings-client
 
 server:
-  port: 0
+  port: 45551
 
-eureka:
-  instance:
-    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+#eureka:
+#  instance:
+#    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}

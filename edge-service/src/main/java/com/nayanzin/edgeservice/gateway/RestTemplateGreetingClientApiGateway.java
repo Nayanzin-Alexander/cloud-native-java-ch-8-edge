@@ -1,4 +1,4 @@
-package com.nayanzin.edgeservice;
+package com.nayanzin.edgeservice.gateway;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
