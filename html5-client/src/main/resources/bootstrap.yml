@@ -1,14 +1,13 @@
 spring:
   application:
-    name: greetings-client
-
+    name: html5-client
 server:
-  port: 45551
+  port: 45552
 
 eureka:
   instance:
     hostname: localhost
-    non-secure-port: 45551
+    non-secure-port: 45552
     metadataMap:
       instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}}
     leaseRenewalIntervalInSeconds: 5

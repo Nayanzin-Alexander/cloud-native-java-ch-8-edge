@@ -1,9 +1,9 @@
 eureka:
   instance:
-    hostname: ${vcap.application.uris[0]:localhost}
+    hostname: localhost
     non-secure-port: 0
     metadataMap:
-      instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
+      instanceId: ${spring.application.name}:${spring.application.instance_id}:${server.port}
     leaseRenewalIntervalInSeconds: 5
 
   client:
