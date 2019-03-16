@@ -1,20 +1,19 @@
 spring:
   profiles:
     active: feign, insecure, cloud
-eureka:
-  instance:
-    hostname: ${vcap.application.uris[0]:localhost}
-    non-secure-port: 0
-    metadataMap:
-      instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
-    leaseRenewalIntervalInSeconds: 5
 
-  client:
-    region: default
-    registryFetchIntervalSeconds: 5
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
-#    serviceUrl.defaultZone: ${vcap.services.service-registry.credentials.uri}/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 logging:
   level:
-    com.nayanzin.edgeservice.feign.GreetingsClient: DEBUG
+    com.nayanzin.edgeservice.zuul.CorsFilter: DEBUG
+
+zuul:
+  routes:
+    hello:
+      serviceId: greetings-service
+      path: /lets/**

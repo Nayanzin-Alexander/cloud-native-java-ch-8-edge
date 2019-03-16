@@ -33,7 +33,7 @@ public class RestTemplateGreetingClientApiGateway {
         ParameterizedTypeReference<Map<String, String>> ptr = new ParameterizedTypeReference<Map<String, String>>() {};
 
         ResponseEntity<Map<String, String>> responseEntity = restTemplate
-                .exchange("http://greetings-service/greet/{name}", GET, null, ptr, name);
+                .exchange("http://greetings-service/greetGet/{name}", GET, null, ptr, name);
 
         return responseEntity.getBody();
     }

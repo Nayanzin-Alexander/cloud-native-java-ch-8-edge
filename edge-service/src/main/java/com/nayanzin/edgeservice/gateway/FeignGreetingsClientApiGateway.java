@@ -21,9 +21,17 @@ public class FeignGreetingsClientApiGateway {
 
     private final GreetingsClient greetingsClient;
 
-    @GetMapping("/feign/{name}")
-    public Map<String, String> feign(@PathVariable("name") String name) {
-        Map<String, String> response = this.greetingsClient.greet(name);
+    @GetMapping("/feign-get/{name}")
+    public Map<String, String> feignGet(@PathVariable("name") String name) {
+        Map<String, String> response = this.greetingsClient.greetGet(name);
+        return isNull(response) ? new HashMap<>() : response;
+    }
+
+    @GetMapping("/feign-post/{name}")
+    public Map<String, String> feignPost(@PathVariable("name") String name) {
+        GreetingsClient.HiMessage hiMessage = new GreetingsClient.HiMessage();
+        hiMessage.setName(name);
+        Map<String, String> response = this.greetingsClient.greetPost(hiMessage);
         return isNull(response) ? new HashMap<>() : response;
     }
 }
