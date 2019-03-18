@@ -23,7 +23,7 @@
         var greetingsServiceUrl = data['uri'] + "/lets/greet/" + nameToGreet;
         console.log('greetingsServiceUrl: ' + greetingsServiceUrl);
         $.ajax({url: greetingsServiceUrl}).done(function (greeting) {
-            $("#message").html(greeting['greeting']);
+            $("#message").html(greeting['greeting'] + " from port:" + greeting['local.server.port']);
         });
     });
 </script>

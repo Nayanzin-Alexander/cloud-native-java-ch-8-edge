@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: auth-service
+
+server:
+  port: 0
+
+eureka:
+  instance:
+    hostname: localhost
+    non-secure-port: 0
+    metadataMap:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}}
+    leaseRenewalIntervalInSeconds: 5
+
+  client:
+    region: default
+    registryFetchIntervalSeconds: 5
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+logging:
+  level:
+    org.springframework.security: DEBUG

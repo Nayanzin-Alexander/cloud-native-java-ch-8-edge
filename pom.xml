@@ -20,6 +20,7 @@
         <module>eureka-server</module>
         <module>greetings-service</module>
         <module>edge-service</module>
+        <module>auth-service</module>
     </modules>
 
     <properties>

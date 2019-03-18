@@ -68,12 +68,12 @@ public class ThrottlingZuulFilter extends ZuulFilter {
 
         if (!rateLimiter.tryAcquire()) {
 
-            // One way
+            // One way to send error response.
             currentContext.setSendZuulResponse(false);
             currentContext.setResponseStatusCode(TOO_MANY_REQUESTS.value());
             currentContext.setResponseBody(TOO_MANY_REQUESTS.getReasonPhrase());
 
-            // And another way
+            // And the another way to send error response.
             throw new ZuulException(TOO_MANY_REQUESTS.getReasonPhrase(), TOO_MANY_REQUESTS.value(), TOO_MANY_REQUESTS.getReasonPhrase());
         }
 
