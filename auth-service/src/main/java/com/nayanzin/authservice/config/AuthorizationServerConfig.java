@@ -1,6 +1,7 @@
 package com.nayanzin.authservice.config;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -11,19 +12,21 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 
 @Configuration
 @EnableAuthorizationServer
-@RequiredArgsConstructor
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     private final AuthenticationManager authenticationManager;
     private final ClientDetailsService clientDetailsService;
 
+    public AuthorizationServerConfig(
+            @Autowired AuthenticationManager authenticationManager,
+            @Autowired @Qualifier("customClientDetails") ClientDetailsService clientDetailsService) {
+        this.authenticationManager = authenticationManager;
+        this.clientDetailsService = clientDetailsService;
+    }
+
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient("client")
-                .authorizedGrantTypes("password")
-                .secret("{noop}secret")
-                .scopes("all");
+        clients.withClientDetails(clientDetailsService);
     }
 
     @Override

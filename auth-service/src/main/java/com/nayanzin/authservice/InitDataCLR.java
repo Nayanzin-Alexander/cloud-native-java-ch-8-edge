@@ -2,7 +2,11 @@ package com.nayanzin.authservice;
 
 import com.nayanzin.authservice.accounts.Account;
 import com.nayanzin.authservice.accounts.AccountJpaRepository;
+import com.nayanzin.authservice.clients.Client;
+import com.nayanzin.authservice.clients.ClientJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -12,12 +16,22 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class InitDataCLR implements CommandLineRunner {
 
+    private final Log log = LogFactory.getLog(getClass());
     private final AccountJpaRepository accountJpaRepository;
+    private final ClientJpaRepository clientJpaRepository;
 
     @Override
     public void run(String... args) {
+        log.info("Save accounts data.");
         Stream.of("sasha,sasha", "masha,masha")
                 .map(s -> s.split(","))
-                .forEach(tuple -> accountJpaRepository.save(new Account(tuple[0], tuple[1], true)));
+                .map(tuple -> new Account(tuple[0], tuple[1], true))
+                .forEach(accountJpaRepository::save);
+
+        log.info("Save clients data.");
+        Stream.of("html5,password", "android,secret")
+                .map(x -> x.split(","))
+                .map(tuple -> new Client(tuple[0], tuple[1]))
+                .forEach(clientJpaRepository::save);
     }
 }
