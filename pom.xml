@@ -17,6 +17,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>security-autoconfiguration</module>
         <module>eureka-server</module>
         <module>greetings-service</module>
         <module>edge-service</module>

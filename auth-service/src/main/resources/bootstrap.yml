@@ -1,16 +1,23 @@
 spring:
   application:
     name: auth-service
+  datasource:
+    url: jdbc:h2:mem:cloud_native_ch8_auth_service
+  jpa:
+    database: H2
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
 
 server:
-  port: 0
+  port: 9191
   servlet:
     context-path: /uaa
 
 eureka:
   instance:
     hostname: localhost
-    non-secure-port: 0
+    non-secure-port: 9191
     metadataMap:
       instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}}
     leaseRenewalIntervalInSeconds: 5
@@ -23,4 +30,6 @@ eureka:
 
 logging:
   level:
+    com: DEBUG
+    org.springframework: DEBUG
     org.springframework.security: DEBUG

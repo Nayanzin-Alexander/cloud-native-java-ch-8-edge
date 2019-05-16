@@ -6,21 +6,21 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-@Profile({"default", "insecure"})
+@Profile("secure")
 @RestController
 @RequiredArgsConstructor
-public class DefaultGreetingsRestController {
+public class SecureGreetingsRestController {
 
     private final Environment env;
 
     @GetMapping("/greet/{name}")
-    public Map<String, String> hi(@PathVariable("name") String name) {
-        Map<String, String> responseMap = new HashMap<>(this.getSomeEnvironmentalVariables());
-        responseMap.put("greeting", "Hello, " + name + "!");
-        return responseMap;
+    public Map<Object, Object> hi(@PathVariable String name, Principal p) {
+        return Collections.singletonMap("greeting", "Hello, " + name + "from " + p.getName() + "!");
     }
 
     @PostMapping("/greet")

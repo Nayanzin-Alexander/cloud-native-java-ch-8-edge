@@ -1,6 +1,8 @@
 spring:
   application:
     name: greetings-client
+  profiles:
+    active: feign, cloud, secure
 
 server:
   port: 45551
@@ -12,9 +14,34 @@ eureka:
     metadataMap:
       instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}}
     leaseRenewalIntervalInSeconds: 5
-
   client:
     region: default
     registryFetchIntervalSeconds: 5
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
+zuul:
+  sensitiveHeaders: Cookie,Set-Cookie
+  routes:
+    hello:
+      serviceId: greetings-service
+      path: /lets/**
+    authorization:
+      serviceId: auth-service
+      path: /authorization/**
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    com.nayanzin.edgeservice.zuul.CorsFilter: DEBUG
+
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://auth-service/uaa/user
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

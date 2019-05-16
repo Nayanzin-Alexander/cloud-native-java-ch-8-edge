@@ -44,7 +44,7 @@ public class ClientConfiguration {
 
             // Get load balanced greeting-client ip.
             String greetingsClientRedirectUri =
-                    Optional.ofNullable(this.loadBalancerClient.choose("greeting-client"))
+                    Optional.ofNullable(this.loadBalancerClient.choose("greetings-client"))
                             .map(si -> "http://" + si.getHost() + ":" + si.getPort() + "/")
                             .orElseThrow(() -> new ClientRegistrationException("Couldn't find and bind a greeting-client IP."));
 

@@ -1,6 +1,13 @@
 spring:
   application:
     name: greetings-service
+  profiles:
+    active: cloud, secure
+
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://auth-service/uaa/user
 
 server:
   port: 0
@@ -8,3 +15,18 @@ server:
 eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    hostname: localhost
+    non-secure-port: 0
+    metadataMap:
+      instanceId: ${spring.application.name}:${spring.application.instance_id}:${server.port}
+      leaseRenewalIntervalInSeconds: 5
+  client:
+    region: default
+    registryFetchIntervalSeconds: 10
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
