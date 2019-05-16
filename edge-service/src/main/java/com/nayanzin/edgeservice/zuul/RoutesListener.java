@@ -18,7 +18,7 @@ public class RoutesListener {
 
     private final DiscoveryClient discoveryClient;
 
-    private Log logger = LogFactory.getLog(getClass());
+    private final Log logger = LogFactory.getLog(getClass());
 
     @EventListener(HeartbeatEvent.class)
     public void onHeartbeatEvent(HeartbeatEvent heartbeatEvent) {
